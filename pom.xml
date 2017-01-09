@@ -17,4 +17,7 @@
     </modules>
 
 
+    <scm>
+        <developerConnection>scm:git:git@github.com:andriygEdu/multimodule.git</developerConnection>
+    </scm>
 </project>
