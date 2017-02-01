@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.andriyg76.test</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <modules>
         <module>common</module>
         <module>module1</module>
         <module>module2</module>
         <module>exec1</module>
         <module>exec2</module>
+        <module>maven_reactor_resolve</module>
     </modules>
 
 
     <scm>
         <developerConnection>scm:git:git@github.com:andriygEdu/multimodule.git</developerConnection>
     </scm>
+
+    <profiles>
+        <profile>
+            <id>resolve_reactor</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.andriyg76.plugins</groupId>
+                        <artifactId>maven_reactor_resolve</artifactId>
+                        <version>${project.version}</version>
+
+                        <executions>
+                            <execution>
+                                <phase>validate</phase>
+                                <goals><goal>touch</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+    </profiles>
 </project>
