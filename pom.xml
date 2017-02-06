@@ -16,8 +16,6 @@
         <module>common</module>
         <module>set1</module>
         <module>set2</module>
-        <module>exec1</module>
-        <module>exec2</module>
         <module>maven_reactor_resolve</module>
     </modules>
 

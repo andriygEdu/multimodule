@@ -34,61 +34,25 @@ import java.util.stream.Collectors;
  *
  * @deprecated Don't use!
  */
-@Mojo( name = "touch", defaultPhase = LifecyclePhase.PROCESS_SOURCES )
+@Mojo(name = "touch", aggregator = true)
 public class MyMojo
-    extends AbstractMojo
-{
+        extends AbstractMojo {
     /**
      * Location of the file.
      */
     @Parameter( defaultValue = "${project.build.directory}", property = "outputDir", required = true )
     private File outputDirectory;
 
-    @Parameter(defaultValue="${reactorProjects}",
-            required=true,
-            readonly=true)
+    @Parameter(defaultValue = "${reactorProjects}",
+            required = true,
+            readonly = true)
     protected List<MavenProject> reactorProjects = Collections.emptyList();
 
     public void execute()
-        throws MojoExecutionException
-    {
-        File f = outputDirectory;
-
-        if ( !f.exists() )
-        {
-            f.mkdirs();
-        }
-
-        File touch = new File( f, "touch.txt" );
-
-        FileWriter w = null;
-        try
-        {
-            w = new FileWriter( touch );
-
-            w.write( "touch.txt" );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Error creating file " + touch, e );
-        }
-        finally
-        {
-            if ( w != null )
-            {
-                try
-                {
-                    w.close();
-                }
-                catch ( IOException e )
-                {
-                    // ignore
-                }
-            }
-        }
-
-        final List<String> dirs = reactorProjects.stream().map(p -> p.getBasedir().toString()).collect(Collectors.toList());
-        getLog().info(String.join(",", dirs));
+            throws MojoExecutionException {
+        final List<String> artifacts = reactorProjects.stream().map(p -> p.getGroupId() + ":" + p.getArtifactId())
+                .collect(Collectors.toList());
+        getLog().info(String.join(",", artifacts));
     }
 
 }

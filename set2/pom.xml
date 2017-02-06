@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>exec2</module>
         <module>module2</module>
     </modules>
 </project>
